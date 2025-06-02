@@ -1,0 +1,10 @@
+{
+	"plugins": ["."],
+	"phpVersion": "8.2",
+	"port": 5698,
+	"testsPort": 5699,
+	"config": {
+		"WP_SITEURL": "http://create-product-on-image-upload.localhost",
+		"WP_HOME": "http://create-product-on-image-upload.localhost"
+	}
+}
