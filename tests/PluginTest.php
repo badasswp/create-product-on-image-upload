@@ -18,12 +18,22 @@ class PluginTest extends TestCase {
 		\WP_Mock::tearDown();
 	}
 
-	public function test_get_product_args() {
+	public function test_register() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$plugin->shouldReceive( 'register' )->andReturnNull();
+		\WP_Mock::expectActionAdded( 'add_attachment', [ $plugin, 'create_product' ] );
+
+		$plugin->register();
+
+		$this->assertConditionsMet();
+	}
+
+	public function test_get_product_args() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
 
 		$post             = Mockery::mock( \WP_Post::class )->makePartial();
 		$post->ID         = 1;
@@ -49,6 +59,194 @@ class PluginTest extends TestCase {
 				'post_content' => '',
 				'post_status'  => 'publish',
 				'post_type'    => 'product',
+			]
+		);
+		$this->assertConditionsMet();
+	}
+
+	public function test_get_product_args_returns_filtered_args() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		$post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$post->ID         = 1;
+		$post->post_title = 'Hello World';
+
+		\WP_Mock::onFilter( 'cpoiu_post_args' )
+		->with(
+			[
+				'post_title'   => 'Hello World',
+				'post_content' => '',
+				'post_status'  => 'publish',
+				'post_type'    => 'product',
+			],
+			$post
+		)
+		->reply(
+			[
+				'post_title'   => 'New Product Name',
+				'post_content' => '',
+				'post_status'  => 'future',
+				'post_type'    => 'product',
+			],
+		);
+
+		$options = $plugin->get_product_args( $post );
+
+		$this->assertSame(
+			$options,
+			[
+				'post_title'   => 'New Product Name',
+				'post_content' => '',
+				'post_status'  => 'future',
+				'post_type'    => 'product',
+			]
+		);
+		$this->assertConditionsMet();
+	}
+
+	public function test_get_product_meta() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		$post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$post->ID         = 1;
+		$post->post_title = 'Hello World';
+
+		\WP_Mock::expectFilter(
+			'cpoiu_meta_args',
+			[
+				'_visibility'    => 'visible',
+				'_stock_status'  => 'instock',
+				'total_sales'    => '0',
+				'_downloadable'  => 'no',
+				'_virtual'       => 'yes',
+				'_regular_price' => '',
+				'_sale_price'    => '',
+				'_purchase_note' => '',
+				'_featured'      => 'no',
+				'_weight'        => '',
+				'_length'        => '',
+				'_width'         => '',
+				'_height'        => '',
+				'_sku'           => '',
+				'_price'         => '',
+				'_manage_stock'  => 'no',
+				'_backorders'    => 'no',
+				'_stock'         => '',
+			],
+			$post
+		);
+
+		$options = $plugin->get_product_meta( $post );
+
+		$this->assertSame(
+			$options,
+			[
+				'_visibility'    => 'visible',
+				'_stock_status'  => 'instock',
+				'total_sales'    => '0',
+				'_downloadable'  => 'no',
+				'_virtual'       => 'yes',
+				'_regular_price' => '',
+				'_sale_price'    => '',
+				'_purchase_note' => '',
+				'_featured'      => 'no',
+				'_weight'        => '',
+				'_length'        => '',
+				'_width'         => '',
+				'_height'        => '',
+				'_sku'           => '',
+				'_price'         => '',
+				'_manage_stock'  => 'no',
+				'_backorders'    => 'no',
+				'_stock'         => '',
+			]
+		);
+		$this->assertConditionsMet();
+	}
+
+	public function test_get_product_meta_returns_filtered_args() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		$post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$post->ID         = 1;
+		$post->post_title = 'Hello World';
+
+		\WP_Mock::onFilter( 'cpoiu_meta_args' )
+		->with(
+			[
+				'_visibility'    => 'visible',
+				'_stock_status'  => 'instock',
+				'total_sales'    => '0',
+				'_downloadable'  => 'no',
+				'_virtual'       => 'yes',
+				'_regular_price' => '',
+				'_sale_price'    => '',
+				'_purchase_note' => '',
+				'_featured'      => 'no',
+				'_weight'        => '',
+				'_length'        => '',
+				'_width'         => '',
+				'_height'        => '',
+				'_sku'           => '',
+				'_price'         => '',
+				'_manage_stock'  => 'no',
+				'_backorders'    => 'no',
+				'_stock'         => '',
+			],
+			$post
+		)
+		->reply(
+			[
+				'_visibility'    => 'visible',
+				'_stock_status'  => 'instock',
+				'total_sales'    => '0',
+				'_downloadable'  => 'no',
+				'_virtual'       => 'yes',
+				'_regular_price' => '0',
+				'_sale_price'    => '0',
+				'_purchase_note' => '',
+				'_featured'      => 'no',
+				'_weight'        => '',
+				'_length'        => '',
+				'_width'         => '',
+				'_height'        => '',
+				'_sku'           => '',
+				'_price'         => '',
+				'_manage_stock'  => 'no',
+				'_backorders'    => 'no',
+				'_stock'         => '',
+			],
+		);
+
+		$options = $plugin->get_product_meta( $post );
+
+		$this->assertSame(
+			$options,
+			[
+				'_visibility'    => 'visible',
+				'_stock_status'  => 'instock',
+				'total_sales'    => '0',
+				'_downloadable'  => 'no',
+				'_virtual'       => 'yes',
+				'_regular_price' => '0',
+				'_sale_price'    => '0',
+				'_purchase_note' => '',
+				'_featured'      => 'no',
+				'_weight'        => '',
+				'_length'        => '',
+				'_width'         => '',
+				'_height'        => '',
+				'_sku'           => '',
+				'_price'         => '',
+				'_manage_stock'  => 'no',
+				'_backorders'    => 'no',
+				'_stock'         => '',
 			]
 		);
 		$this->assertConditionsMet();
