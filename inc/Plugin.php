@@ -39,11 +39,13 @@ class Plugin {
 	 * @return void
 	 */
 	public function create_product( $attachment_id ): void {
-		if ( ! wp_attachment_is_image( $attachment_id ) ) {
+		$id = absint( $attachment_id );
+
+		if ( ! wp_attachment_is_image( $id ) ) {
 			return;
 		}
 
-		$this->post = get_post( $attachment_id );
+		$this->post = get_post( $id );
 
 		if ( is_null( $this->post ) ) {
 			return;
@@ -55,7 +57,7 @@ class Plugin {
 			return;
 		}
 
-		set_post_thumbnail( $product_id, $attachment_id );
+		set_post_thumbnail( $product_id, $id );
 		wp_set_object_terms( $product_id, 'simple', 'product_type' );
 
 		foreach ( $this->get_meta_args() as $key => $value ) {
