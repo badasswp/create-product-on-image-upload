@@ -2,7 +2,8 @@
 /**
  * Plugin Class.
  *
- * Load the plugin and register the services.
+ * Load the plugin and register the appropriate
+ * WP hooks.
  *
  * @package CreateProductOnImageUpload
  */
@@ -10,6 +11,15 @@
 namespace CreateProductOnImageUpload;
 
 class Plugin {
+	/**
+	 * WP Post.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var \WP_Post
+	 */
+	public \WP_Post $post;
+
 	/**
 	 * Bind to WP.
 	 *
@@ -33,13 +43,13 @@ class Plugin {
 			return;
 		}
 
-		$post = get_post( $attachment_id );
+		$this->post = get_post( $attachment_id );
 
-		if ( is_null( $post ) ) {
+		if ( is_null( $this->post ) ) {
 			return;
 		}
 
-		$product_id = wp_insert_post( $this->get_product_args( $post ) );
+		$product_id = wp_insert_post( $this->get_product_args() );
 
 		if ( is_wp_error( $product_id ) ) {
 			return;
@@ -48,7 +58,7 @@ class Plugin {
 		set_post_thumbnail( $product_id, $attachment_id );
 		wp_set_object_terms( $product_id, 'simple', 'product_type' );
 
-		foreach ( $this->get_meta_args( $post ) as $key => $value ) {
+		foreach ( $this->get_meta_args() as $key => $value ) {
 			update_post_meta( $product_id, $key, $value );
 		}
 	}
@@ -58,12 +68,11 @@ class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param \WP_Post $post WP Post.
 	 * @return mixed[]
 	 */
-	protected function get_product_args( $post ): array {
+	protected function get_product_args(): array {
 		$args = [
-			'post_title'   => $post->post_title,
+			'post_title'   => $this->post->post_title,
 			'post_content' => '',
 			'post_status'  => 'publish',
 			'post_type'    => 'product',
@@ -79,7 +88,7 @@ class Plugin {
 		 *
 		 * @return mixed[]
 		 */
-		return (array) apply_filters( 'cpoiu_post_args', $args, $post );
+		return (array) apply_filters( 'cpoiu_post_args', $args, $this->post );
 	}
 
 	/**
@@ -87,10 +96,9 @@ class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param \WP_Post $post WP Post.
 	 * @return mixed[]
 	 */
-	protected function get_product_meta( $post ): array {
+	protected function get_product_meta(): array {
 		$args = [
 			'_visibility'    => 'visible',
 			'_stock_status'  => 'instock',
@@ -122,6 +130,6 @@ class Plugin {
 		 *
 		 * @return mixed[]
 		 */
-		return (array) apply_filters( 'cpoiu_meta_args', $args, $post );
+		return (array) apply_filters( 'cpoiu_meta_args', $args, $this->post );
 	}
 }
