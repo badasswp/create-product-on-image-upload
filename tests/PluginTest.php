@@ -35,9 +35,9 @@ class PluginTest extends TestCase {
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$post             = Mockery::mock( \WP_Post::class )->makePartial();
-		$post->ID         = 1;
-		$post->post_title = 'Hello World';
+		$plugin->post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$plugin->post->ID         = 1;
+		$plugin->post->post_title = 'Hello World';
 
 		\WP_Mock::expectFilter(
 			'cpoiu_post_args',
@@ -47,10 +47,10 @@ class PluginTest extends TestCase {
 				'post_status'  => 'publish',
 				'post_type'    => 'product',
 			],
-			$post
+			$plugin->post
 		);
 
-		$options = $plugin->get_product_args( $post );
+		$options = $plugin->get_product_args();
 
 		$this->assertSame(
 			$options,
@@ -69,9 +69,9 @@ class PluginTest extends TestCase {
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$post             = Mockery::mock( \WP_Post::class )->makePartial();
-		$post->ID         = 1;
-		$post->post_title = 'Hello World';
+		$plugin->post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$plugin->post->ID         = 1;
+		$plugin->post->post_title = 'Hello World';
 
 		\WP_Mock::onFilter( 'cpoiu_post_args' )
 		->with(
@@ -81,7 +81,7 @@ class PluginTest extends TestCase {
 				'post_status'  => 'publish',
 				'post_type'    => 'product',
 			],
-			$post
+			$plugin->post
 		)
 		->reply(
 			[
@@ -92,7 +92,7 @@ class PluginTest extends TestCase {
 			],
 		);
 
-		$options = $plugin->get_product_args( $post );
+		$options = $plugin->get_product_args();
 
 		$this->assertSame(
 			$options,
@@ -111,9 +111,9 @@ class PluginTest extends TestCase {
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$post             = Mockery::mock( \WP_Post::class )->makePartial();
-		$post->ID         = 1;
-		$post->post_title = 'Hello World';
+		$plugin->post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$plugin->post->ID         = 1;
+		$plugin->post->post_title = 'Hello World';
 
 		\WP_Mock::expectFilter(
 			'cpoiu_meta_args',
@@ -137,10 +137,10 @@ class PluginTest extends TestCase {
 				'_backorders'    => 'no',
 				'_stock'         => '',
 			],
-			$post
+			$plugin->post
 		);
 
-		$options = $plugin->get_product_meta( $post );
+		$options = $plugin->get_product_meta();
 
 		$this->assertSame(
 			$options,
@@ -173,9 +173,9 @@ class PluginTest extends TestCase {
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$post             = Mockery::mock( \WP_Post::class )->makePartial();
-		$post->ID         = 1;
-		$post->post_title = 'Hello World';
+		$plugin->post             = Mockery::mock( \WP_Post::class )->makePartial();
+		$plugin->post->ID         = 1;
+		$plugin->post->post_title = 'Hello World';
 
 		\WP_Mock::onFilter( 'cpoiu_meta_args' )
 		->with(
@@ -199,7 +199,7 @@ class PluginTest extends TestCase {
 				'_backorders'    => 'no',
 				'_stock'         => '',
 			],
-			$post
+			$plugin->post
 		)
 		->reply(
 			[
@@ -224,7 +224,7 @@ class PluginTest extends TestCase {
 			],
 		);
 
-		$options = $plugin->get_product_meta( $post );
+		$options = $plugin->get_product_meta();
 
 		$this->assertSame(
 			$options,
