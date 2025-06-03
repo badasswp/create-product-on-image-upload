@@ -35,7 +35,7 @@ class Plugin {
 
 		$post = get_post( $attachment_id );
 
-		if ( is_wp_error( $post ) ) {
+		if ( is_null( $post ) ) {
 			return;
 		}
 
