@@ -57,6 +57,37 @@ class PluginTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 
+	public function create_product_fails_if_attachment_post_is_null() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		\WP_Mock::userFunction( 'absint' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return intval( $arg );
+				}
+			);
+
+		\WP_Mock::userFunction( 'wp_attachment_is_image' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return true;
+				}
+			);
+
+		\WP_Mock::userFunction( 'get_post' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return null;
+				}
+			);
+
+		$plugin->create_product( 1 );
+
+		$this->assertConditionsMet();
+	}
+
 	public function test_get_product_args() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
