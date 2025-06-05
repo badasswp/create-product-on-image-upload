@@ -8,6 +8,8 @@ use CreateProductOnImageUpload\Plugin;
 
 /**
  * @covers \CreateProductOnImageUpload\Plugin::get_product_args
+ * @covers \CreateProductOnImageUpload\Plugin::get_product_meta
+ * @covers \CreateProductOnImageUpload\Plugin::create_product
  */
 class PluginTest extends TestCase {
 	public function setUp(): void {
@@ -26,6 +28,30 @@ class PluginTest extends TestCase {
 		\WP_Mock::expectActionAdded( 'add_attachment', [ $plugin, 'create_product' ] );
 
 		$plugin->register();
+
+		$this->assertConditionsMet();
+	}
+
+	public function create_product_fails_if_attachment_is_not_image() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		\WP_Mock::userFunction( 'absint' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return intval( $arg );
+				}
+			);
+
+		\WP_Mock::userFunction( 'wp_attachment_is_image' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return false;
+				}
+			);
+
+		$plugin->create_product( 1 );
 
 		$this->assertConditionsMet();
 	}
