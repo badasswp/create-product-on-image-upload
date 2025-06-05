@@ -7,6 +7,7 @@ use WP_Mock\Tools\TestCase;
 use CreateProductOnImageUpload\Plugin;
 
 /**
+ * @covers \CreateProductOnImageUpload\Plugin::register
  * @covers \CreateProductOnImageUpload\Plugin::get_product_args
  * @covers \CreateProductOnImageUpload\Plugin::get_product_meta
  * @covers \CreateProductOnImageUpload\Plugin::create_product
