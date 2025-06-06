@@ -28,6 +28,7 @@ class Plugin {
 	 * @return void
 	 */
 	public function register(): void {
+		add_action( 'init', [ $this, 'register_translation' ] );
 		add_action( 'add_attachment', [ $this, 'create_product' ] );
 	}
 
@@ -133,5 +134,20 @@ class Plugin {
 		 * @return mixed[]
 		 */
 		return (array) apply_filters( 'cpoiu_meta_args', $args, $this->post );
+	}
+
+	/**
+	 * Add Plugin text translation.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @wp-hook 'init'
+	 */
+	public function register_translation() {
+		load_plugin_textdomain(
+			'create-product-on-image-upload',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
 	}
 }
