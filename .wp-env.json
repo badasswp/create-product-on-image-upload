@@ -1,5 +1,8 @@
 {
-	"plugins": ["."],
+	"plugins": [
+    ".",
+    "./vendor/woocommerce"
+  ],
 	"phpVersion": "8.2",
 	"port": 5698,
 	"testsPort": 5699,
