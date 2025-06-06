@@ -16,9 +16,9 @@ class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var \WP_Post
+	 * @var \WP_Post|null
 	 */
-	public \WP_Post $post;
+	public \WP_Post|null $post;
 
 	/**
 	 * Bind to WP.
