@@ -88,6 +88,62 @@ class PluginTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 
+	public function create_product_fails_if_insert_fails() {
+		$plugin = Mockery::mock( Plugin::class )
+			->shouldAllowMockingProtectedMethods()
+			->makePartial();
+
+		$post             = Mockery::mock( \WP_Post::class );
+		$post->post_title = 'Hello World';
+
+		$error = Mockery::mock( \WP_Error::class );
+
+		\WP_Mock::userFunction( 'absint' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return intval( $arg );
+				}
+			);
+
+		\WP_Mock::userFunction( 'wp_attachment_is_image' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return true;
+				}
+			);
+
+		\WP_Mock::userFunction( 'get_post' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return $post;
+				}
+			);
+
+		\WP_Mock::userFunction( 'is_wp_error' )
+			->andReturnUsing(
+				function ( $arg ) {
+					return $arg instanceof \WP_Error;
+				}
+			);
+
+		$plugin->shouldReceive( 'get_product_args' )
+			->andReturn(
+				[
+					'post_title'   => 'Hello World',
+					'post_content' => '',
+					'post_status'  => 'publish',
+					'post_type'    => 'product',
+				]
+			);
+
+		\WP_Mock::userFunction( 'wp_insert_post' )
+			->andReturn( $error );
+
+		$plugin->create_product( 1 );
+
+		$this->assertConditionsMet();
+	}
+
 	public function test_get_product_args() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
