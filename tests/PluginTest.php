@@ -33,7 +33,7 @@ class PluginTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 
-	public function create_product_fails_if_attachment_is_not_image() {
+	public function test_create_product_fails_if_attachment_is_not_image() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
@@ -57,7 +57,7 @@ class PluginTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 
-	public function create_product_fails_if_attachment_post_is_null() {
+	public function test_create_product_fails_if_attachment_post_is_null() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
@@ -88,7 +88,7 @@ class PluginTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 
-	public function create_product_fails_if_insert_fails() {
+	public function test_create_product_fails_if_insert_fails() {
 		$plugin = Mockery::mock( Plugin::class )
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
