@@ -27,6 +27,7 @@ class PluginTest extends TestCase {
 			->makePartial();
 
 		\WP_Mock::expectActionAdded( 'add_attachment', [ $plugin, 'create_product' ] );
+		\WP_Mock::expectActionAdded( 'init', [ $plugin, 'register_translation' ] );
 
 		$plugin->register();
 
