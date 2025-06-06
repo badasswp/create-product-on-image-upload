@@ -93,9 +93,6 @@ class PluginTest extends TestCase {
 			->shouldAllowMockingProtectedMethods()
 			->makePartial();
 
-		$post             = Mockery::mock( \WP_Post::class );
-		$post->post_title = 'Hello World';
-
 		$error = Mockery::mock( \WP_Error::class );
 
 		\WP_Mock::userFunction( 'absint' )
@@ -115,6 +112,9 @@ class PluginTest extends TestCase {
 		\WP_Mock::userFunction( 'get_post' )
 			->andReturnUsing(
 				function ( $arg ) {
+					$post             = Mockery::mock( \WP_Post::class );
+					$post->post_title = 'Hello World';
+
 					return $post;
 				}
 			);
