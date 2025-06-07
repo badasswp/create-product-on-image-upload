@@ -2,9 +2,13 @@
 
 Create WooCommerce products automatically by uploading images.
 
+<img width="1277" alt="cpoiu-mini" src="https://github.com/user-attachments/assets/fbc5c010-1a3b-4746-99ad-fc0a762e6e31" />
+
 ## Why Create Product On Image Upload?
 
 This plugin makes it easy to create WooCommerce products by simply uploading the featured image of the product you intend to create. It will proceed to use the name of the image as the product name.
+
+https://github.com/user-attachments/assets/ec601f69-bd06-461f-90a6-d1b6a74dd1eb
 
 ### Hooks
 
