@@ -40,5 +40,4 @@ if ( ! file_exists( CREATE_PRODUCT_ON_IMAGE_UPLOAD_AUTOLOAD ) ) {
 
 // Run Plugin.
 require_once CREATE_PRODUCT_ON_IMAGE_UPLOAD_AUTOLOAD;
-
 ( new \CreateProductOnImageUpload\Plugin() )->register();
