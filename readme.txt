@@ -3,7 +3,7 @@ Contributors: badasswp
 Tags: woocommerce, product, image, upload
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,6 +60,10 @@ Want to add your personal touch? All of our documentation can be found [here](ht
 4. WooCommerce - See all products uploaded to your site.
 
 == Changelog ==
+
+= 1.0.1 =
+* Update Plugin filename.
+* Tested up to WP 6.8.1
 
 = 1.0.0 =
 * Initial plugin release.

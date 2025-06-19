@@ -3,7 +3,7 @@
  * Plugin Name: Create Product On Image Upload
  * Plugin URI:  https://github.com/badasswp/create-product-on-image-upload
  * Description: Create WooCommerce products automatically by uploading images.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      badasswp
  * Author URI:  github.com/badasswp
  * License:     GPL v2 or later
