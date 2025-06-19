@@ -2,7 +2,7 @@
 Contributors: badasswp
 Tags: woocommerce, product, image, upload
 Requires at least: 4.0
-Tested up to: 6.8.1
+Tested up to: 6.8
 Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
