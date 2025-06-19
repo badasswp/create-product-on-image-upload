@@ -5,7 +5,7 @@
  * Description: Create WooCommerce products automatically by uploading images.
  * Version:     1.0.1
  * Author:      badasswp
- * Author URI:  github.com/badasswp
+ * Author URI:  https://github.com/badasswp
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: create-product-on-image-upload
