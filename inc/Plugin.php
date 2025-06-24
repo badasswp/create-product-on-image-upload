@@ -145,7 +145,7 @@ class Plugin {
 	 */
 	public function register_translation() {
 		load_plugin_textdomain(
-			'create-product-on-image-upload',
+			'cpoiu',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);

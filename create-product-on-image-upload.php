@@ -8,7 +8,7 @@
  * Author URI:  https://github.com/badasswp
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain: create-product-on-image-upload
+ * Text Domain: cpoiu
  * Domain Path: /languages
  *
  * @package CreateProductOnImageUpload
@@ -29,7 +29,7 @@ if ( ! file_exists( CREATE_PRODUCT_ON_IMAGE_UPLOAD_AUTOLOAD ) ) {
 		function () {
 			vprintf(
 				/* translators: Plugin directory path. */
-				esc_html__( 'Fatal Error: Composer not setup in %s', 'create-product-on-image-upload' ),
+				esc_html__( 'Fatal Error: Composer not setup in %s', 'cpoiu' ),
 				[ __DIR__ ]
 			);
 		}
