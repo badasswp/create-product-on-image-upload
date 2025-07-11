@@ -8,7 +8,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create WooCommerce products automatically by uploading images.
+Create WooCommerce products automatically by uploading images. Get new products to your e-commerce store faster and more efficiently.
 
 == Installation ==
 
