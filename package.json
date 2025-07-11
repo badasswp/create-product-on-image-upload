@@ -1,6 +1,6 @@
 {
 	"name": "create-product-on-image-upload",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Create WooCommerce products automatically by uploading images.",
 	"author": "badasswp",
 	"license": "GPL-3.0-or-later",

@@ -3,12 +3,12 @@ Contributors: badasswp
 Tags: woocommerce, product, image, upload
 Requires at least: 4.0
 Tested up to: 6.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create WooCommerce products automatically by uploading images.
+Create WooCommerce products automatically by uploading images. Get new products to your e-commerce store faster and more efficiently.
 
 == Installation ==
 
@@ -60,6 +60,16 @@ Want to add your personal touch? All of our documentation can be found [here](ht
 4. WooCommerce - See all products uploaded to your site.
 
 == Changelog ==
+
+= 1.0.3 =
+* Fix issue with text-domain.
+* Update `po/mo` translation files.
+* Update README notes.
+* Tested up to WP 6.8.1
+
+= 1.0.2 =
+* Fix issue with plugin author name.
+* Tested up to WP 6.8.1
 
 = 1.0.1 =
 * Update Plugin filename.
