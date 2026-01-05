@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+* Specify `wordpress-plugin` as Composer package type.
+* Tested up to WP 6.9.
+
 ## 1.0.3
 * Fix issue with text-domain.
 * Update `po/mo` translation files.
